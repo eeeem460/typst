@@ -1,3 +1,5 @@
 {
-    // "files.autoSave": "afterDelay",
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "editor.acceptSuggestionOnEnter": "off",
 }
