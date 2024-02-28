@@ -107,11 +107,12 @@
 
 // ***** start document *****
 
-#show: project.with(title: "不偏ゲームとGrundy数", author: "えおえお  (𝕏 : @eoeo_sub)")
+// #show: project.with(title: "不偏ゲームとGrundy数", author: "えおえお  (𝕏 : @eoeo_sub)")
+#show: project.with(title: "不偏ゲームとGrundy数")
 
 以下、主に将来の自分へ向けたメモであり、@sato （石取りゲームの数学、佐藤文広）を参考にしてまとめる。
 
-#blue[気になる点があればご連絡いただけると幸いです。]
+// #blue[気になる点があればご連絡いただけると幸いです。]
 
 // 目次
 #outline(fill: none, indent: true)
