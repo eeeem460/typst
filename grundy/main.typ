@@ -62,7 +62,7 @@
 
 // projectの参考元：https://github.com/stepney141/my_typst_template/blob/main/%E3%83%AA%E3%82%A2%E3%83%9A%E3%83%BB%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E7%94%A8/template.typ
 
-#let project(title: "", author: "", abstract: "", body) = {
+#let project(title: "", author: "", body) = {
   set document(author: author, title: title)
 
   // フォントの設定
@@ -80,8 +80,8 @@
   // 見出しの番号
   set heading(numbering: "1.1.", )
 
-  // 行間
-  set par(leading: 0.8em, justify: true)
+  // 行間と字下げ
+  set par(leading: 0.8em, first-line-indent: 1em, justify: true)
 
   // 見出しの隙間を調整
   show heading: it => [
@@ -98,16 +98,8 @@
     #v(1em)
   ]
 
-  // アブストラクト
-  align[
-    #block(text(abstract))
-  ]
-
   // 目次
-  outline(fill: none, indent: true)
-
-  // 字下げ一文字
-  set par(first-line-indent: 1em)
+  // outline(fill: none, indent: true)
 
   body
 }
@@ -121,8 +113,12 @@
 #show: project.with(
   title: "不偏ゲームとGrundy数",
   author: "えおえお  (𝕏 : @eoeo_sub)",
-  abstract: "以下、将来の自分のためのメモであり、「石取りゲームの数学、佐藤文広」を参考にしてまとめる。"
 )
+
+以下、将来の自分のためのメモであり、「石取りゲームの数学、佐藤文広」を参考にしてまとめる。
+
+// 目次
+#outline(fill: none, indent: true)
 
 = 不偏ゲームの定義
 
@@ -225,6 +221,8 @@
 となるゲーム列を必ず構成することができる。なぜなら、先手必勝局面からは必ず後手必勝局面を選択でき、
 後手必勝局面では先手必勝となる局面しか選択できないからである。
 
+#pagebreak()
+
 = 不偏ゲームの例
 
 #example(
@@ -249,36 +247,35 @@
   である。なぜなら、定義より終了局面 $0$ は後手必勝局面であり、任意の局面 $i > 0$ に対して、$i$ からは後手必勝局面 $0 in cal(R)(i)$ に遷移できるからである。
 
   これを表にすると、
-  #{
-    set align(center)
-
-    table(
-      columns: 9,
-      inset: 8pt,
-      $i$,
-      [0],
-      [1],
-      [2],
-      [3],
-      [4],
-      [5],
-      [6],
-      [$dots$],
-      [$cal(G) \/ cal(S)$],
-      $cal(G)$,
-      $cal(S)$,
-      $cal(S)$,
-      $cal(S)$,
-      $cal(S)$,
-      $cal(S)$,
-      $cal(S)$,
-      $dots$
-    )
-  }
-
+  #align(center)[
+    #figure(
+      table(
+        columns: 9,
+        inset: 8pt,
+        $i$,
+        [0],
+        [1],
+        [2],
+        [3],
+        [4],
+        [5],
+        [6],
+        [$dots$],
+        [$cal(G) \/ cal(S)$],
+        $cal(G)$,
+        $cal(S)$,
+        $cal(S)$,
+        $cal(S)$,
+        $cal(S)$,
+        $cal(S)$,
+        $cal(S)$,
+        $dots$
+      ) 
+    ) <table1>
+  ] 
   となる。 上の表で、$cal(G)$ は後手必勝局面、$cal(S)$ は先手必勝局面という意味である。 競技プログラミングでは、このような先後の必勝判定を
   bool 型の配列で行うことがある。 その際には、局面の長さが小さい順に判定を行えばよい。
-]
+] 
 
 #example("制限一山Nim")[
   一山Nimで一度に取ることができる石の数を $3$ 個以下に制限に制限したものを
