@@ -189,7 +189,10 @@
   $cal(G)$ の元を*後手必勝局面*、$cal(S)$ の元を*先手必勝局面*という。
 
   局面の長さが小さい順に考えることで、任意の $P in cal(P)$ が $P in cal(G) union cal(S)$ となることが分かる。さらに、$cal(P) = cal(G) union.sq cal(S)$ となることも分かる。
+
+  #blue[これちゃんと再帰的に定義できてますかね？]
 ] <df_win_lose>
+
 
 #remark[
   @sato では @df_win_lose が定義ではなく補題である。
