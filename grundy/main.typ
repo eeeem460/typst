@@ -59,7 +59,7 @@
 
 // projectの参考元：https://github.com/stepney141/my_typst_template/blob/main/%E3%83%AA%E3%82%A2%E3%83%9A%E3%83%BB%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E7%94%A8/template.typ
 
-#let project(title: "", author: "", body) = {
+#let project(title: "", author: "", abstract: "", body) = {
   set document(author: author, title: title)
 
   // フォントの設定
@@ -95,6 +95,10 @@
     #v(1em)
   ]
 
+  align[
+    #block(text(abstract))
+  ]
+
   // 目次
   outline(fill: none, indent: true)
 
@@ -105,13 +109,16 @@
 }
 
 
-// start document
+
+
+
+// ***** start document *****
+
 #show: project.with(
   title: "不偏ゲームとGrundy数",
-  author: "えおえお  (𝕏 : @eoeo_sub)"
+  author: "えおえお  (𝕏 : @eoeo_sub)",
+  abstract: "以下、将来の自分のためのメモであり、「石取りゲームの数学、佐藤文広」を参考にしてまとめる。"
 )
-
-以下、将来の自分のためのメモであり、「石取りゲームの数学、佐藤文広」を参考にしてまとめる。
 
 = 不偏ゲームの定義
 
