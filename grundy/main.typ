@@ -4,8 +4,11 @@
 #show: thmrules.with(qed-symbol: $square$)
 
 // Define theorem environments
+// 以下、日本語に変更してnumberingを消した。
 
-#let theorem = thmbox("theorem", "定理", fill: rgb("#e8e8f8")).with(numbering: none)
+// 番号なしにする場合
+// #let theorem = thmbox("theorem", "定理", fill: rgb("#e8e8f8")).with(numbering: none)
+#let theorem = thmbox("theorem", "定理", fill: rgb("#e8e8f8"))
 
 #let lemma = thmbox(
   "theorem", // Lemmas use the same counter as Theorems
@@ -14,17 +17,17 @@
 ).with(numbering: none)
 
 #let corollary = thmbox(
-  "corollary",
+  "theorem",
   "系",
   base: "theorem", // Corollaries are 'attached' to Theorems
   fill: rgb("#f8e8e8"),
 ).with(numbering: none)
 
 #let definition = thmbox(
-  "definition", // Definitions use their own counter
+  "theorem", // Theorem と同じ番号
   "定義",
   fill: rgb("#e8f8e8"),
-).with(numbering: none)
+)
 
 #let exercise = thmbox(
   "exercise",
