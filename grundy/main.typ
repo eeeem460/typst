@@ -14,14 +14,14 @@
   "theorem", // Lemmas use the same counter as Theorems
   "補題",
   fill: rgb("#efe6ff"),
-).with(numbering: none)
+)
 
 #let corollary = thmbox(
   "theorem",
   "系",
   base: "theorem", // Corollaries are 'attached' to Theorems
   fill: rgb("#f8e8e8"),
-).with(numbering: none)
+)
 
 #let definition = thmbox(
   "theorem", // Theorem と同じ番号
@@ -37,14 +37,14 @@
 ).with(numbering: "I") // Use Roman numerals
 
 // Examples and remarks are not numbered
-#let example = thmbox("example", "例").with(numbering: none)
+#let example = thmbox("example", "例")
 
-#let remark = thmplain("remark", "注意", inset: 0em).with(numbering: none)
+#let remark = thmplain("remark", "注意", inset: 0em)
 
 // Proofs are attached to theorems, although they are not numbered
 #let proof = thmproof("proof", "証明", base: "theorem")
 
-#let solution = thmplain("solution", "解", base: "exercise", inset: 0em).with(numbering: none)
+#let solution = thmplain("solution", "解", base: "exercise", inset: 0em)
 
 // #show strong: set text(fill: blue)
 
@@ -56,7 +56,9 @@
 // #let mex = (x) => $op("mex") {#x}$
 #let mex = (x) => $op("mex") #x$
 
-// #show: report.with(title: "不偏ゲームとGrundy数", author: "eoeo")
+#let blue(term, color: blue) = {
+  text(color, box[#term])
+}
 
 // Template
 
@@ -66,19 +68,15 @@
   set document(author: author, title: title)
 
   // フォントの設定
-  set text(
-    font: (
-      "Nimbus Roman",
-      // "Hiragino Mincho ProN",
-      // "MS Mincho",
-      "Noto Serif CJK JP", 
-    ),
-    size: 11pt,
-    lang: "ja"
-  )
+  set text(font: (
+    "Nimbus Roman",
+    // "Hiragino Mincho ProN",
+    // "MS Mincho",
+    "Noto Serif CJK JP",
+  ), size: 11pt, lang: "ja")
 
   // 見出しの番号
-  set heading(numbering: "1.1.", )
+  set heading(numbering: "1.1.")
 
   // 行間と字下げ
   set par(leading: 0.8em, first-line-indent: 1em, justify: true)
@@ -104,23 +102,16 @@
   body
 }
 
-
-
-
-
 // ***** start document *****
 
-#show: project.with(
-  title: "不偏ゲームとGrundy数",
-  author: "えおえお  (𝕏 : @eoeo_sub)",
-)
+#show: project.with(title: "不偏ゲームとGrundy数", author: "えおえお  (𝕏 : @eoeo_sub)")
 
-以下、将来の自分のためのメモであり、「石取りゲームの数学、佐藤文広」を参考にしてまとめる。
+以下、将来の自分のためのメモであり、@sato （石取りゲームの数学、佐藤文広）を参考にしてまとめる。
 
 // 目次
 #outline(fill: none, indent: true)
 
-= 不偏ゲームの定義
+= 不偏ゲーム
 
 *不偏ゲーム*とは以下の性質を満たすゲームである。
 
@@ -181,6 +172,8 @@
   となることが分かる。また、$P in cal(E)$ に対して $l(P) = 1$ が成り立つ。
 ]
 
+#pagebreak()
+
 = 不偏ゲームの勝敗
 
 不偏ゲームの勝敗を考える。
@@ -196,6 +189,10 @@
   $cal(G)$ の元を*後手必勝局面*、$cal(S)$ の元を*先手必勝局面*という。
 
   局面の長さが小さい順に考えることで、任意の $P in cal(P)$ が $P in cal(G) union cal(S)$ となることが分かる。さらに、$cal(P) = cal(G) union.sq cal(S)$ となることも分かる。
+] <df_win_lose>
+
+#remark[
+  @sato では @df_win_lose が定義ではなく補題である。
 ]
 
 #remark[
@@ -223,16 +220,15 @@
 
 #pagebreak()
 
-= 不偏ゲームの例
+= 不偏ゲームの例 <game_ex>
 
 #example(
   "一山Nim",
 )[
   $n$ 個の石が積み上げられている山が一つある。このとき、二人で交互に山から好きなだけ石を取り合う。
-  先に石を取ることができなくなった方の負けである。このゲームを *一山Nim* という。 
+  先に石を取ることができなくなった方の負けである。このゲームを *一山Nim* という。
 
-  一山Nimを不偏ゲームの定義にもとづいて集合論の言葉で述べる。
-  局面全体の集合を $cal(P) = {0, 1, dots, n}$ とおき、ルール$cal(R) : cal(P) -> 2^cal(P)$ を
+  一山Nimを不偏ゲームの定義にもとづいて集合論の言葉で述べる。 局面全体の集合を $cal(P) = {0, 1, dots, n}$ とおき、ルール$cal(R) : cal(P) -> 2^cal(P)$ を
   $
     cal(R)(0) &= emptyset, quad \
     cal(R)(i) &= {0, dots, i - 1} quad (0 < i <= n)
@@ -242,52 +238,50 @@
   さらに、後手必勝局面全体の集合 $cal(G)$ と先手必勝局面全体の集合 $cal(S)$ は、
   $
     cal(G) &= { 0 } \
-    cal(S) &= {1, dots, n} 
+    cal(S) &= {1, dots, n}
   $
   である。なぜなら、定義より終了局面 $0$ は後手必勝局面であり、任意の局面 $i > 0$ に対して、$i$ からは後手必勝局面 $0 in cal(R)(i)$ に遷移できるからである。
 
   これを表にすると、
   #align(center)[
-    #figure(
-      table(
-        columns: 9,
-        inset: 8pt,
-        $i$,
-        [0],
-        [1],
-        [2],
-        [3],
-        [4],
-        [5],
-        [6],
-        [$dots$],
-        [$cal(G) \/ cal(S)$],
-        $cal(G)$,
-        $cal(S)$,
-        $cal(S)$,
-        $cal(S)$,
-        $cal(S)$,
-        $cal(S)$,
-        $cal(S)$,
-        $dots$
-      ) 
-    ) <table1>
-  ] 
+    #figure(table(
+      columns: 9,
+      inset: 8pt,
+      $i$,
+      [0],
+      [1],
+      [2],
+      [3],
+      [4],
+      [5],
+      [6],
+      [$dots$],
+      [$cal(G) \/ cal(S)$],
+      $cal(G)$,
+      $cal(S)$,
+      $cal(S)$,
+      $cal(S)$,
+      $cal(S)$,
+      $cal(S)$,
+      $cal(S)$,
+      $dots$,
+    )) <table1>
+  ]
   となる。 上の表で、$cal(G)$ は後手必勝局面、$cal(S)$ は先手必勝局面という意味である。 競技プログラミングでは、このような先後の必勝判定を
   bool 型の配列で行うことがある。 その際には、局面の長さが小さい順に判定を行えばよい。
-] 
+] <one_nim>
 
-#example("制限一山Nim")[
-  一山Nimで一度に取ることができる石の数を $3$ 個以下に制限に制限したものを
-  制限一山Nimという。
+#example(
+  "制限一山Nim",
+)[
+  一山Nimで一度に取ることができる石の数を $3$ 個以下に制限に制限したものを 制限一山Nimという。
 
-  局面全体の集合は一山Nimと変わらず $cal(P) = {0, 1, dots, n}$ とおく。
-  ルール $cal(R) : cal(P) -> 2^cal(P)$ を
+  局面全体の集合は一山Nimと変わらず $cal(P) = {0, 1, dots, n}$ とおく。 ルール $cal(R) : cal(P) -> 2^cal(P)$ を
   $
     cal(R)(i) = { max(0, i - j) | 1 <= j <= 3 } quad (0 <= i <= n)
   $
   と定める。このとき、やはり組 $(cal(P), cal(R))$ は有限型の不偏ゲームである。
-  
+
   さらに、
   $
     cal(G) := { i in cal(P) | i equiv 0 thin (mod 4) } \
@@ -329,17 +323,17 @@
   // 一度に山からとることができる石の数が異なっても同様に考えられる。
 ]
 
-#example("一般化されたNim")[
+#example(
+  "一般化されたNim",
+)[
   一山Nimで一度に取ることができる石の数を $2$ 個 か $3$ 個のどちらか一方に制限に制限したものを考える。
 
-  局面全体の集合は一山Nimと変わらず $cal(P) = {0, 1, dots, n}$ とおく。
-  ルール $cal(R) : cal(P) -> 2^cal(P)$ を
+  局面全体の集合は一山Nimと変わらず $cal(P) = {0, 1, dots, n}$ とおく。 ルール $cal(R) : cal(P) -> 2^cal(P)$ を
   $
     cal(R)(i) &= { max(0, i - j) | j = 2 or j = 3 } quad (0 <= i <= n)
   $
-  と定める。このとき、やはり組 $(cal(P), cal(R))$ は有限型の不偏ゲームである。
-  終了局面全体の集合は$cal(E) = {0, 1}$ であることに注意されたい。
-  
+  と定める。このとき、やはり組 $(cal(P), cal(R))$ は有限型の不偏ゲームである。 終了局面全体の集合は$cal(E) = {0, 1}$ であることに注意されたい。
+
   さらに、
   $
     cal(G) := { i in cal(P) | i equiv 0 thin (mod 5) or i equiv 1 thin (mod 5) } \
@@ -386,9 +380,11 @@
 
 不偏ゲームの局面に対してgrundy数を定義する。
 
-#definition("Grundy数")[
-  $cal(A) = (cal(P), cal(R))$ を不偏ゲームとする。
-  局面 $P in cal(P)$ の*grundy数* $g(P)$ を次で再帰的に定義する。
+#definition(
+  "Grundy数",
+)[
+  $cal(A) = (cal(P), cal(R))$ を不偏ゲームとする。 局面 $P in cal(P)$ の*grundy数* $g(P)$
+  を次で再帰的に定義する。
   $
     g(P) := mex({ g(Q) | Q in cal(R)(P) })
   $
@@ -412,21 +408,21 @@ grundy数を用いて不偏ゲームの必勝判定を行うことができる�
 ]
 
 証明は $"mex"$ の性質そのものである。
+#blue[証明は読まなくて良いです。]
 
 #proof[
   $A := { P in cal(P) | g(P) eq 0 }$ 、$B := { P in cal(P) | g(P) eq.not 0 }$ とおく。
-  $cal(P) = A union.sq B = cal(G) union.sq cal(S)$ であるから $A subset cal(G)$ と $B subset cal(S
-  )$ を示せばよい。
-  
+  $cal(P) = A union.sq B = cal(G) union.sq cal(S)$ であるから $A subset cal(G)$ と $B subset cal(S)$ を示せばよい。
+
   局面の長さによる帰納法で示す。後手必勝局面の定義から、
-  $ 
+  $
     cal(G) = cal(E) union { P in cal(P) | forall Q in cal(R)(P), thin Q in cal(S) } \
     cal(S) = { P in cal(P) | exists Q in cal(R)(P), thin Q in cal(G) }
   $
   だった。
   - $cal(E) subset A$ について、$cal(E) subset cal(G)$ となることは良い。
   - 長さ $k$ 以下の局面 $P in cal(P)$ に対して、$P in A$ ならば $P in cal(G)$ であり、
-   $P in B$ ならば $P in cal(S)$ が成り立つと仮定する。
+    $P in B$ ならば $P in cal(S)$ が成り立つと仮定する。
   - このとき、$P in cal(P)$ を長さ $k + 1$ の局面とする。
     - まず、$P in A$ だったとする。$g(P) = 0$ であるので、$P$ の任意の後続局面 $Q in cal(R)(P)$ に対して、$g(Q) eq.not 0$ をみたす。これは $"mex"$ の定義から従う。$l(Q) <= k$ であるので帰納法の仮定から、$Q in cal(S)$ である。したがって、$P in cal(G)$ となる。
     - 次に、$P in B$ だったとする。$g(P) eq.not 0$ であるので、$P$ のある後続局面 $Q in cal(R)(P)$ が存在して、
@@ -474,27 +470,20 @@ grundy数を用いて不偏ゲームの必勝判定を行うことができる�
       $6$,
       $dots$,
     )
-  } 
+  }
   となる。 一般に $g(i) = i$ であることが分かる。
 ]
 
-#example("制限一山Nim")[
-  一山Nimで一度に取ることができる石の数を $3$ 個以下に制限に制限したものを
-  制限一山Nimという。
-
-  局面全体の集合は一山Nimと変わらず $cal(P) = {0, 1, dots, n}$ とおく。
-  ルール $cal(R) : cal(P) -> 2^cal(P)$ を
+#example(
+  "制限一山Nim",
+)[
+  制限一山Nimの局面全体の集合は $cal(P) = {0, 1, dots, n}$ 、 ルールは $cal(R) : cal(P) -> 2^cal(P)$ だった。
   $
     cal(R)(i) = { max(0, i - j) | 1 <= j <= 3 } quad (0 <= i <= n)
   $
-  と定める。このとき、やはり組 $(cal(P), cal(R))$ は有限型の不偏ゲームである。
-  
-  さらに、
-  $
-    cal(G) := { i in cal(P) | i equiv 0 thin (mod 4) } \
-    cal(S) := { i in cal(P) | i equiv.not 0 thin (mod 4) }
-  $
-  であることが分かる。これは帰納法、つまり以下の表を $i$ が小さい順に埋めることで分かる。
+  と定める。
+
+  局面の長さが小さい順にgrundy数を計算して表にすると、
   #{
     set align(center)
 
@@ -513,34 +502,34 @@ grundy数を用いて不偏ゲームの必勝判定を行うことができる�
       [8],
       [9],
       [$dots$],
-      [$cal(G) \/ cal(S)$],
-      $cal(G)$,
-      $cal(S)$,
-      $cal(S)$,
-      $cal(S)$,
-      $cal(G)$,
-      $cal(S)$,
-      $cal(S)$,
-      $cal(S)$,
-      $cal(G)$,
-      $cal(S)$,
+      [$g(i)$],
+      $0$,
+      $1$,
+      $2$,
+      $3$,
+      $0$,
+      $1$,
+      $2$,
+      $3$,
+      $0$,
+      $1$,
       $dots$,
     )
-  } 
-  // 一度に山からとることができる石の数が異なっても同様に考えられる。
+  }
+  となる。 帰納的に $g(i) = (i mod 4)$ であることが分かる。 ただし、$i mod 4$ は $i$ を $4$ で割ったあまりである。 // 一度に山からとることができる石の数が異なっても同様に考えられる。
 ]
 
-#example("一般化されたNim")[
+#example(
+  "一般化されたNim",
+)[
   一山Nimで一度に取ることができる石の数を $2$ 個 か $3$ 個のどちらか一方に制限に制限したものを考える。
 
-  局面全体の集合は一山Nimと変わらず $cal(P) = {0, 1, dots, n}$ とおく。
-  ルール $cal(R) : cal(P) -> 2^cal(P)$ を
+  局面全体の集合は一山Nimと変わらず $cal(P) = {0, 1, dots, n}$ とおく。 ルール $cal(R) : cal(P) -> 2^cal(P)$ を
   $
     cal(R)(i) &= { max(0, i - j) | j = 2 or j = 3 } quad (0 <= i <= n)
   $
-  と定める。このとき、やはり組 $(cal(P), cal(R))$ は有限型の不偏ゲームである。
-  終了局面全体の集合は$cal(E) = {0, 1}$ であることに注意されたい。
-  
+  と定める。このとき、やはり組 $(cal(P), cal(R))$ は有限型の不偏ゲームである。 終了局面全体の集合は$cal(E) = {0, 1}$ であることに注意されたい。
+
   さらに、
   $
     cal(G) := { i in cal(P) | i equiv 0 thin (mod 5) or i equiv 1 thin (mod 5) } \
@@ -583,14 +572,22 @@ grundy数を用いて不偏ゲームの必勝判定を行うことができる�
   }
 ]
 
-= ゲームの和
+以上の3つの例、それぞれを @game_ex で計算した表と比べると、
+$cal(G)$ が $g(i) eq.not 0$ と、$cal(S)$ が $g(i) eq 0$ と、それぞれ対応しているのが分かる。
 
-二つの不偏ゲームを独立に行うゲームを二つの*不偏ゲームの和*という。
-元の二つのゲームのどちらか一方のみを一手進めることを、ゲームの和の一手として定める。
+このことから分かるように、単純なゲームの必勝判定をしたいだけであればgrundy数を計算する必要はない。 単に @game_ex
+で行ったように局面が後手必勝であるか先手必勝であるかの二通りで判定していけばよいからである。 しかし、grundy数は局面の勝敗以上の情報を含んでいる。
+@game_sum で述べるように、複数のゲームを組み合わせた際にその威力が発揮される。
+
+= ゲームの和 <game_sum>
+
+二つの不偏ゲームを独立に行うゲームを二つの*不偏ゲームの和*という。 元の二つのゲームのどちらか一方のみを一手進めることを、ゲームの和の一手として定める。
 
 集合論の言葉でより正確に表現しよう。
 
-#definition("不偏ゲームの和")[
+#definition(
+  "不偏ゲームの和",
+)[
   $cal(A)_1 = (cal(P)_1, cal(R)_1)$ と $cal(A)_2 = (cal(P)_2, cal(R)_2)$ をそれぞれ不偏ゲームとする。
   このとき、$cal(R)_1 times cal(R)_2 : cal(P)_1 times cal(P)_2 -> 2^(cal(P)_1) times 2^(cal(P)_2)$ を $P_1 in cal(P)_1, thin P_2 in cal(P)_2$ に対して、
   $
@@ -601,4 +598,4 @@ grundy数を用いて不偏ゲームの必勝判定を行うことができる�
   $cal(A)_1 times cal(A)_2$ は不偏ゲームである。
 ]
 
-
+#bibliography("references.bib")
