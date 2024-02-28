@@ -133,8 +133,8 @@
 = 不偏ゲームの数学的な定義  <sec_def>
 
 #definition(
-  "不偏ゲーム",
-)[
+  "不偏ゲーム"
+)[ (@sato, p. 22) 
   $cal(P)$ を空でない集合、$cal(R)$ を写像 $cal(R) : cal(P) -> 2^cal(P)$ とする。 // さらに、$O$ を $X$ の空でない部分集合で $f(O) = emptyset$ を満たすものとする。
   このとき、組 $cal(A) = (cal(P), cal(R))$ のことを*不偏ゲーム*という。 さらに、$cal(P)$ の元を *$cal(A)$
   の局面*、$cal(R)$ を*$cal(A)$のルール*という。 また、$cal(R) (P)$ の元を*局面 $P$ の後続局面*という。
@@ -151,13 +151,13 @@
 
 #definition(
   "ゲームの進行",
-)[
+)[ (@sato, p. 23)
   $n > 0$ を自然数とする。$P_1, dots, P_n in cal(P)$ が
   $P_(i + 1) in cal(R)(P_i) space (i = 1, dots, n - 1)$ を満たすとき、列 $(P_1, dots, P_n)$ は
   *$P_1$ から始まる長さ $n$ のゲーム列*であるという。 一つの局面 $P$ からなる列 $(P)$ も長さ 1 のゲーム列であるとみなす。
 ]
 
-#definition("有限性条件")[
+#definition("有限性条件")[ (@sato, p. 23)
   次を満たすとき、$cal(A)$ を*有限型の不偏ゲーム*という。
   - ある $n_0 in NN$ が存在して、$cal(A)$ の長さ $n_0$ 以上のゲーム列が存在しない。
     すなわち、$cal(A)$ のゲーム列の長さは有界である。
@@ -165,15 +165,15 @@
 
 以下、本記事では有限型の不偏ゲームのみを扱う。
 
-#definition("局面の長さ")[
+#definition("局面の長さ")[ (@sato, p. 23)
   局面 $P in cal(P)$ に対して、$l(P)$ を $P$ から始まるゲーム列の長さの最大値とする。
   // また、$P in cal(E)$ に対しては、$l(P) = 1$ と定めることにする。
   $len(P)$ は不偏ゲームの有限性条件から一意に定まる。$l(P)$ を*局面 $P$ の長さ* という。
 ]
 
 #definition(
-  "終了局面",
-)[
+  "終了局面"
+)[ (@sato, p.23)
   局面 $P$ が $cal(R)(P) = emptyset$ を満たすとき、$P$ を*終了局面*という。 終了局面全体の集合を $cal(E)$ とおく：
   $ cal(E) := { P in cal(P) | cal(R)(P) = emptyset} $
   $cal(A)$ の有限性から、$cal(E) eq.not emptyset$
@@ -188,7 +188,7 @@
 
 #definition(
   "不偏ゲームの勝敗",
-)[
+)[ (@sato, 補題2.4)
   $cal(A) = (cal(P), cal(R))$ を不偏ゲームとする。
   再帰的に $cal(G)$ と $cal(S)$ を定義する：
 
@@ -394,7 +394,7 @@
 
 #definition(
   "Grundy数",
-)[
+)[ (@sato, pp. 34-35)
   $cal(A) = (cal(P), cal(R))$ を不偏ゲームとする。 局面 $P in cal(P)$ の*Grundy数* $g(P)$
   を次で再帰的に定義する。
   $
@@ -407,7 +407,7 @@
 
 Grundy数を用いて不偏ゲームの必勝判定を行うことができる。
 
-#theorem("Grundy数による必勝判定")[
+#theorem("Grundy数による必勝判定")[ (@sato, 定理3.1)
   不偏ゲーム $cal(A) = (cal(P), cal(R))$ の後手必勝局面全体の集合を$cal(G)$、先手必勝局面全体の集合を
   $cal(S)$ とする。
 
@@ -610,7 +610,7 @@ $cal(G)$ が $g(i) eq.not 0$ と、$cal(S)$ が $g(i) eq 0$ と、それぞれ�
 
 #definition(
   "不偏ゲームの和",
-)[
+)[ (@sato, pp. 39-40)
   $cal(A)_1 = (cal(P)_1, cal(R)_1)$ と $cal(A)_2 = (cal(P)_2, cal(R)_2)$ をそれぞれ不偏ゲームとする。
   このとき、$cal(R)_1 times cal(R)_2 : cal(P)_1 times cal(P)_2 -> 2^(cal(P)_1) times 2^(cal(P)_2)$ を $P_1 in cal(P)_1, thin P_2 in cal(P)_2$ に対して、
   $
@@ -633,7 +633,7 @@ $
 
 #theorem(
   "ゲームの和のGrundy数",
-)[
+)[ (@sato, 定理3.4)
   $cal(A)_1 = (cal(P)_1, cal(R)_1), thin cal(A)_2 = (cal(P)_2, cal(R)_2)$ を不偏ゲームとする。$cal(A)_1$ と $cal(A)_2$ のGrundy数をそれぞれ $g_(cal(A)_1)$ と $g_cal(A)_2$ で表す。また、和 $cal(A)_1 + cal(A)_2$ のGrundy数を $g_(cal(A)_1 + cal(A)_2)$ と定める。
 
   このとき、局面 $P_1 in cal(P)_1, thin P_2 in cal(P)_2$ に対して、
