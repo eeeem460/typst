@@ -95,6 +95,7 @@
     #v(1em)
   ]
 
+  // アブストラクト
   align[
     #block(text(abstract))
   ]
