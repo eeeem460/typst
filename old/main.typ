@@ -1,6 +1,7 @@
-// プリアンブル全体の参考元：https://github.com/sahasatvik/typst-theorems/blob/main/differential_calculus.typ
+#import "./template.typ": *
+#import "./theorems.typ": *
+// #import "@preview/tablex:0.0.8": tablex, rowspanx, colspanx
 
-#import "@preview/ctheorems:1.1.2": *
 #show: thmrules.with(qed-symbol: $square$)
 
 // Define theorem environments
@@ -53,67 +54,11 @@
 // #let mex = (x) => $op("mex") {#x}$
 #let mex = (x) => $op("mex") #x$
 
-// #show: report.with(title: "不偏ゲームとGrundy数", author: "eoeo")
-
-// Template
-
-// projectの参考元：https://github.com/stepney141/my_typst_template/blob/main/%E3%83%AA%E3%82%A2%E3%83%9A%E3%83%BB%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E7%94%A8/template.typ
-
-#let project(title: "", author: "", body) = {
-  set document(author: author, title: title)
-
-  // フォントの設定
-  set text(
-    font: (
-      "Nimbus Roman",
-      // "Hiragino Mincho ProN",
-      // "MS Mincho",
-      "Noto Serif CJK JP", 
-    ),
-    size: 11pt,
-    lang: "ja"
-  )
-
-  // 見出しの番号
-  set heading(numbering: "1.1.", )
-
-  // 行間
-  set par(leading: 0.8em, justify: true)
-
-  // 見出しの隙間を調整
-  show heading: it => [
-    #v(2em)
-    #it
-    #v(1em)
-  ]
-
-  // タイトルと著者
-  align(center)[
-    #block(text(weight: 700, 1.75em, title))
-    #v(1em)
-    #block(text(1em, author))
-    #v(1em)
-  ]
-
-  // 目次
-  outline(fill: none, indent: true)
-
-  // 字下げ一文字
-  set par(first-line-indent: 1em)
-
-  body
-}
-
-
-// start document
-#show: project.with(
-  title: "不偏ゲームとGrundy数",
-  author: "えおえお  (𝕏 : @eoeo_sub)"
-)
+#show: report.with(title: "不偏ゲームとGrundy数", author: "えおえお (𝕏: @eoeo_sub)")
 
 以下、将来の自分のためのメモであり、「石取りゲームの数学、佐藤文広」を参考にしてまとめる。
 
-= 不偏ゲームの定義
+== 不偏ゲームの定義
 
 *不偏ゲーム*とは以下の性質を満たすゲームである。
 
@@ -125,7 +70,7 @@
 有名な不偏ゲームとしてはNimが挙げられ、これは後ほど例として取り上げる。 一方で、不偏ゲームではないゲームの例としてオセロが挙げられる。
 これは、オセロはある局面で打てる手が先手と後手で異なるためである。
 
-= 不偏ゲームの数学的な定義
+== 不偏ゲームの数学的な定義
 
 #definition(
   "不偏ゲーム",
@@ -174,7 +119,7 @@
   となることが分かる。また、$P in cal(E)$ に対して $l(P) = 1$ が成り立つ。
 ]
 
-= 不偏ゲームの勝敗
+== 不偏ゲームの勝敗
 
 不偏ゲームの勝敗を考える。
 
@@ -214,7 +159,9 @@
 となるゲーム列を必ず構成することができる。なぜなら、先手必勝局面からは必ず後手必勝局面を選択でき、
 後手必勝局面では先手必勝となる局面しか選択できないからである。
 
-= 不偏ゲームの例
+#pagebreak()
+
+== 不偏ゲームの例
 
 #example(
   "一山Nim",
@@ -374,7 +321,7 @@
   }
 ]
 
-= Grundy数
+== Grundy数
 
 不偏ゲームの局面に対してgrundy数を定義する。
 
@@ -426,7 +373,7 @@ grundy数を用いて不偏ゲームの必勝判定を行うことができる�
       $Q in cal(G)$ である。したがって、$P in cal(S)$ となる。
 ]
 
-= Grundy数の例
+== Grundy数の例
 
 不偏ゲームの例としてあげた3つのゲームのgrundy数を計算する。
 
@@ -575,7 +522,7 @@ grundy数を用いて不偏ゲームの必勝判定を行うことができる�
   }
 ]
 
-= ゲームの和
+== ゲームの和
 
 二つの不偏ゲームを独立に行うゲームを二つの*不偏ゲームの和*という。
 元の二つのゲームのどちらか一方のみを一手進めることを、ゲームの和の一手として定める。
